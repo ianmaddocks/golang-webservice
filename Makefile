@@ -18,18 +18,31 @@ build: clean
 	@echo "build..."
 	@echo "buildtime: " ${BUILD_TIME}
 	CGO_ENABLED=0 GOOS=${GOOS} GOARCH=${GOARCH} go build \
-		-ldflags "-s -w -X ${PROJECT}/main.Release=${RELEASE} \
-		-X ${PROJECT}/main.Commit=${COMMIT} \
-		-X ${PROJECT}/main.BuildTime=${BUILD_TIME}" \
+		-ldflags "-s -w -X '${PROJECT}/version.Release=${RELEASE}' \
+		-X '${PROJECT}/version.Commit=${COMMIT}' \
+		-X '${PROJECT}/version.BuildTime=${BUILD_TIME}'" \
+		-o ${APP}
+
+build4mac: clean
+	@echo "build..."
+	@echo "buildtime: " ${BUILD_TIME}
+	go build -ldflags "-s -w -X '${PROJECT}/version.Release=${RELEASE}' \
+        -X '${PROJECT}/version.Commit=${COMMIT}' \
+        -X '${PROJECT}/version.BuildTime=${BUILD_TIME}'" \
 		-o ${APP}
 
 container: build
 	@echo "container.."
 	docker image rm -f $(CONTAINER_IMAGE):$(RELEASE) || true
-	docker build -t $(CONTAINER_IMAGE):$(RELEASE) .
+	docker build -t $(CONTAINER_IMAGE):$(RELEASE) -f Dockerfile.scratch .
 
-run: container
+run_native: build4mac
 	@echo "run..."
+	@echo "set PORT using 'export PORT=...'"
+	./${APP}
+
+run_container: container
+	@echo "run in a Docker container..."
 	docker stop $(APP):$(RELEASE) || true && docker rm $(APP):$(RELEASE) || true
 	docker run --name ${APP} -p ${PORT}:${PORT} --rm \
 		-d -e "PORT=${PORT}" \
