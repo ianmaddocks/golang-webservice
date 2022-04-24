@@ -1,0 +1,10 @@
+FROM scratch
+
+ENV PORT 8000
+EXPOSE $PORT
+
+#RUN mkdir -p /log
+COPY microservice2 /
+COPY Makefile /log
+#CMD ["/microservice2"]
+ENTRYPOINT ["/microservice2"]  "-stderrthreshold=INFO" "-log_dir=./log"

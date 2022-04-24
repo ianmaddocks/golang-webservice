@@ -1,0 +1,34 @@
+# syntax=docker/dockerfile:1
+
+############################
+# STEP 1 build executable binary
+############################
+#source: https://chemidy.medium.com/create-the-smallest-and-secured-golang-docker-image-based-on-scratch-4752223b7324
+
+FROM golang:1.16-alpine AS builder
+#FROM golang:1.12.0-alpine3.9
+
+WORKDIR /app
+
+COPY . ./
+COPY go.* ./
+RUN go mod download
+
+RUN go build -mod=readonly -v -o server
+
+
+############################
+# STEP 2 build a small image
+############################
+
+FROM scratch
+
+WORKDIR /app
+
+# Copy our static executable.
+COPY --from=builder /app/server /app/server
+
+ENV PORT 8000
+EXPOSE $PORT
+
+CMD [ "/app/server" ]
