@@ -16,7 +16,15 @@ import (
 	"log" //"github.com/golang/glog"
 
 	"microservice2/handlers"
-	"microservice2/version"
+)
+
+var (
+	// BuildTime is a time label of the moment when the binary was built
+	BuildTime = "unset"
+	// Commit is a last commit hash at the moment when the binary was built
+	Commit = "unset"
+	// Release is a semantic version of current build
+	Release = "unset"
 )
 
 func usage() {
@@ -45,7 +53,7 @@ func main() {
 	log.Print("main called")
 	log.Printf(
 		"Starting the service...\n\tcommit: %s, build time: %s, release: %s",
-		version.Commit, version.BuildTime, version.Release,
+		Commit, BuildTime, Release,
 	)
 
 	port := os.Getenv("PORT")
@@ -54,7 +62,7 @@ func main() {
 		log.Fatal("env var PORT is not set.")
 	}
 
-	r := handlers.Router(version.BuildTime, version.Commit, version.Release)
+	r := handlers.Router(BuildTime, Commit, Release)
 
 	interrupt := make(chan os.Signal, 1)
 	signal.Notify(interrupt, os.Interrupt, syscall.SIGTERM)

@@ -2,10 +2,7 @@ package handlers
 
 import (
 	"encoding/json"
-
-	"log"
-	//"github.com/golang/glog"
-
+	"log" //"github.com/golang/glog"
 	"net/http"
 )
 
