@@ -32,7 +32,7 @@ jobs:
       - name: Publish to Registry
         uses: elgohr/Publish-Docker-Github-Action@v4
         with:
-          name: ${{ secrets.DOCKER_USERNAME }}/${{ github.repository }}
+          name: ianmaddocks/microservice2
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           dockerfile: Dockerfile
