@@ -1,13 +1,15 @@
-PROJECT?=microservice2
+PROJECT=microservice2
 PORT?=8000
-
-RELEASE?=0.0.5
 COMMIT?=$(shell git rev-parse --short HEAD)
-BUILD_TIME?=$(shell date -u '+%Y-%m-%d_%H:%M:%S')
-GOOS?=linux
-GOARCH?=amd64
-APP?=${PROJECT}
-CONTAINER_IMAGE?=docker.io/ianmaddocks/${APP}
+BUILD_TIME=$(shell date -u '+%Y-%m-%d_%H:%M:%S')
+GOOS=linux
+GOARCH=amd64
+APP=${PROJECT}
+CONTAINER_IMAGE=docker.io/ianmaddocks/${APP}
+
+RELEASE = $(file < VERSION)
+
+.PHONY: clean test build build4mac container push run_native run_container
 
 clean:
 	@echo "clean..."
