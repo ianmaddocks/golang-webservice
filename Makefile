@@ -1,7 +1,7 @@
 PROJECT?=microservice2
 PORT?=8000
 
-RELEASE?=0.0.2
+RELEASE?=0.0.3
 COMMIT?=$(shell git rev-parse --short HEAD)
 BUILD_TIME?=$(shell date -u '+%Y-%m-%d_%H:%M:%S')
 GOOS?=linux
@@ -17,6 +17,7 @@ clean:
 build: clean
 	@echo "build..."
 	@echo "buildtime: " ${BUILD_TIME}
+	@echo "settings: GOOS=" ${GOOS} ", GOARCH="${GOARCH} ", Release="${RELEASE} ", Commit=" ${COMMIT}
 	CGO_ENABLED=0 GOOS=${GOOS} GOARCH=${GOARCH} go build \
 		-ldflags "-s -w -X '${PROJECT}/version.Release=${RELEASE}' \
 		-X '${PROJECT}/version.Commit=${COMMIT}' \
