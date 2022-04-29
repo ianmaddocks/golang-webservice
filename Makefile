@@ -1,14 +1,13 @@
 PROJECT?=microservice2
 PORT?=8000
 
-RELEASE?=0.0.4
+RELEASE?=0.0.5
 COMMIT?=$(shell git rev-parse --short HEAD)
 BUILD_TIME?=$(shell date -u '+%Y-%m-%d_%H:%M:%S')
 GOOS?=linux
 GOARCH?=amd64
 APP?=${PROJECT}
 CONTAINER_IMAGE?=docker.io/ianmaddocks/${APP}
-
 
 clean:
 	@echo "clean..."
@@ -32,9 +31,9 @@ build4mac: clean
 	@echo "build..."
 	@echo "settings: BuildTime="${BUILD_TIME}", Release="${RELEASE}", Commit=" ${COMMIT}
 	go build -ldflags "-s -w \
-	-X '${PROJECT}/version.Release=${RELEASE}' \
-        -X '${PROJECT}/version.Commit=${COMMIT}' \
-        -X '${PROJECT}/version.BuildTime=${BUILD_TIME}'" \
+		-X '${PROJECT}/version.Release=${RELEASE}' \
+		-X '${PROJECT}/version.Commit=${COMMIT}' \
+		-X '${PROJECT}/version.BuildTime=${BUILD_TIME}'" \
 		-o ${APP}
 
 container: build
@@ -46,7 +45,7 @@ push: container
 	@echo "push..."
 	docker push $(CONTAINER_IMAGE):$(RELEASE)
 	
-	run_native: build4mac
+run_native: build4mac
 	@echo "run..."
 	@echo "set PORT using 'export PORT=...'"
 	./${APP}
