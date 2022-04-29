@@ -11,6 +11,9 @@ jobs:
     - name: test service
       run: |
         make test
+    - name: build container
+      run: |
+        make container
     - name: docker login
       env:
         DOCKER_USER: ${{ secrets.DOCKER_USER }}   
