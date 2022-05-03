@@ -16,7 +16,7 @@ import (
 	"log" //"github.com/golang/glog"
 
 	"microservice2/handlers"
-	"microservice2/version"
+	"microservice2/vn"
 )
 
 func usage() {
