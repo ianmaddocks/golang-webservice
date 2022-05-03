@@ -10,15 +10,7 @@ RUN go mod download
 
 RUN go build -mod=readonly -v -o server
 
-ENV PORT 8000
-EXPOSE 8000
+ENV PORT 80
+EXPOSE 80
 
 CMD [ "/app/server" ]
-
-
-############################
-# Build & run examples
-############################
-#docker build -t microservice2 .
-#docker run  -it --rm --name my_microservice2 -p 80:8000 -e PORT=8000 microservice
-#curl localhost:80/home

@@ -14,7 +14,7 @@ func TestHome(t *testing.T) {
 	buildTime := time.Now().Format("20060102_03:04:05")
 	commit := "some test hash"
 	release := "0.0.8"
-	h := home(buildTime, commit, release)
+	h := version(buildTime, commit, release)
 	h(w, nil)
 
 	resp := w.Result()

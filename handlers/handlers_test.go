@@ -11,20 +11,20 @@ func TestRouter(t *testing.T) {
 	ts := httptest.NewServer(r)
 	defer ts.Close()
 
-	res, err := http.Get(ts.URL + "/home")
+	res, err := http.Get(ts.URL + "/version")
 	if err != nil {
 		t.Fatal(err)
 	}
 	if res.StatusCode != http.StatusOK {
-		t.Errorf("Status code for /home is wrong. Have: %d, want: %d.", res.StatusCode, http.StatusOK)
+		t.Errorf("Status code for /version is wrong. Have: %d, want: %d.", res.StatusCode, http.StatusOK)
 	}
 
-	res, err = http.Post(ts.URL+"/home", "text/plain", nil)
+	res, err = http.Post(ts.URL+"/version", "text/plain", nil)
 	if err != nil {
 		t.Fatal(err)
 	}
 	if res.StatusCode != http.StatusMethodNotAllowed {
-		t.Errorf("Status code for /home is wrong. Have: %d, want: %d.", res.StatusCode, http.StatusMethodNotAllowed)
+		t.Errorf("Status code for /version is wrong. Have: %d, want: %d.", res.StatusCode, http.StatusMethodNotAllowed)
 	}
 
 	res, err = http.Get(ts.URL + "/not-exists")
@@ -32,6 +32,6 @@ func TestRouter(t *testing.T) {
 		t.Fatal(err)
 	}
 	if res.StatusCode != http.StatusNotFound {
-		t.Errorf("Status code for /home is wrong. Have: %d, want: %d.", res.StatusCode, http.StatusNotFound)
+		t.Errorf("Status code for /version is wrong. Have: %d, want: %d.", res.StatusCode, http.StatusNotFound)
 	}
 }

@@ -1,5 +1,7 @@
-PROJECT=microservice2
-PORT?=8000
+PROJECT?=microservice2
+PORT?=80
+
+RELEASE?=0.0.3
 COMMIT?=$(shell git rev-parse --short HEAD)
 BUILD_TIME=$(shell date -u '+%Y-%m-%d_%H:%M:%S')
 GOOS=linux
