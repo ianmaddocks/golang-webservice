@@ -1,5 +1,5 @@
 PROJECT?=microservice2
-PORT?=8000
+PORT?=80
 
 RELEASE?=0.0.3
 COMMIT?=$(shell git rev-parse --short HEAD)

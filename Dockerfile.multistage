@@ -28,7 +28,7 @@ WORKDIR /app
 # Copy our static executable.
 COPY --from=builder /app/server /app/server
 
-ENV PORT 8000
+ENV PORT 80
 EXPOSE $PORT
 
 CMD [ "/app/server" ]

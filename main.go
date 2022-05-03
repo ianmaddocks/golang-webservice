@@ -32,7 +32,7 @@ func init() {
 	flag.Parse()
 }
 
-// How to try it: PORT=8000 go run main.go
+// How to try it: PORT=80 go run main.go
 func main() {
 	/*
 		glog.V(2).Info("main called")
@@ -51,8 +51,8 @@ func main() {
 	port := os.Getenv("PORT")
 	if port == "" {
 		//glog.Fatal("env var PORT is not set.")
-		log.Print("env var PORT is not set, using 8000")
-		port = "8000"
+		log.Print("env var PORT is not set, using 80")
+		port = "80"
 	}
 
 	r := handlers.Router(version.BuildTime, version.Commit, version.Release)

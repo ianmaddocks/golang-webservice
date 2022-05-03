@@ -7,7 +7,7 @@ import (
 )
 
 // home returns a simple HTTP handler function which writes a response.
-func home(buildTime, commit, release string) http.HandlerFunc {
+func version(buildTime, commit, release string) http.HandlerFunc {
 	return func(w http.ResponseWriter, _ *http.Request) {
 		log.Print("home called")
 		info := struct {
