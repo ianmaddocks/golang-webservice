@@ -11,9 +11,9 @@ func version(buildTime, commit, release string) http.HandlerFunc {
 	return func(w http.ResponseWriter, _ *http.Request) {
 		log.Print("home called")
 		info := struct {
-			BuildTime string `json:"buildTime"`
-			Commit    string `json:"commit"`
-			Release   string `json:"release"`
+			Build time string `json:"buildTime"`
+			Commit id  string `json:"commit"`
+			Release    string `json:"release"`
 		}{
 			buildTime, commit, release,
 		}
