@@ -43,7 +43,9 @@ build4mac: clean
 container: build
 	@echo "container.."
 	docker image rm -f $(CONTAINER_IMAGE):$(RELEASE) || true
-	docker build -t $(CONTAINER_IMAGE):$(RELEASE) -f Dockerfile.scratch .
+	docker build -f Dockerfile.scratch \
+		-t $(CONTAINER_IMAGE):$(RELEASE) \
+		-t $(CONTAINER_IMAGE):latest .
 
 push: container
 	@echo "push..."
