@@ -44,7 +44,6 @@ container: build
 	@echo "container.."
 	docker image rm -f $(CONTAINER_IMAGE):$(RELEASE) || true
 	docker build -f Dockerfile.scratch \
-		-t $(CONTAINER_IMAGE):$(RELEASE) \
 		-t $(CONTAINER_IMAGE):latest .
 
 push: container
