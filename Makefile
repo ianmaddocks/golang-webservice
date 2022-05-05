@@ -44,11 +44,12 @@ container: build
 	@echo "container.."
 	docker image rm -f $(CONTAINER_IMAGE):$(RELEASE) || true
 	docker build -f Dockerfile.scratch \
+		-t $(CONTAINER_IMAGE):$(RELEASE) \
 		-t $(CONTAINER_IMAGE):latest .
 
 push: container
 	@echo "push..."
-	docker push $(CONTAINER_IMAGE):$(RELEASE)
+	docker push -a $(CONTAINER_IMAGE)
 	
 run_native: build4mac
 	@echo "run..."
