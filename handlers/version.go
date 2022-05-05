@@ -4,18 +4,20 @@ import (
 	"encoding/json"
 	"log" //"github.com/golang/glog"
 	"net/http"
+	"time"
 )
 
 // home returns a simple HTTP handler function which writes a response.
 func version(buildTime, commit, release string) http.HandlerFunc {
 	return func(w http.ResponseWriter, _ *http.Request) {
-		log.Print("home called")
+		log.Print("version called")
 		info := struct {
-			BuildTime string `json:"buildTime"`
-			Commit    string `json:"commit"`
-			Release   string `json:"release"`
+			CurrentTime string `json:"currentTime"`
+			BuildTime   string `json:"buildTime"`
+			Commit      string `json:"commit"`
+			Release     string `json:"release"`
 		}{
-			buildTime, commit, release,
+			time.Now().String(), buildTime, commit, release,
 		}
 
 		body, err := json.Marshal(info)
