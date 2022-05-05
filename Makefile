@@ -26,18 +26,18 @@ build: clean
 	@echo "settings: GOOS=" ${GOOS}", GOARCH="${GOARCH}", BuildTime="${BUILD_TIME}", Release="${RELEASE}", Commit=" ${COMMIT}
 	CGO_ENABLED=0 GOOS=${GOOS} GOARCH=${GOARCH} go build \
 		-ldflags "-s -w \
-		-X '${PROJECT}/version.Release=${RELEASE}' \
-		-X '${PROJECT}/version.Commit=${COMMIT}' \
-		-X '${PROJECT}/version.BuildTime=${BUILD_TIME}'" \
+		-X '${PROJECT}/vn.Release=${RELEASE}' \
+		-X '${PROJECT}/vn.Commit=${COMMIT}' \
+		-X '${PROJECT}/vn.BuildTime=${BUILD_TIME}'" \
 		-o ${APP}
 
 build4mac: clean
 	@echo "build..."
 	@echo "settings: BuildTime="${BUILD_TIME}", Release="${RELEASE}", Commit=" ${COMMIT}
 	go build -ldflags "-s -w \
-		-X '${PROJECT}/version.Release=${RELEASE}' \
-		-X '${PROJECT}/version.Commit=${COMMIT}' \
-		-X '${PROJECT}/version.BuildTime=${BUILD_TIME}'" \
+		-X '${PROJECT}/vn.Release=${RELEASE}' \
+		-X '${PROJECT}/vn.Commit=${COMMIT}' \
+		-X '${PROJECT}/vn.BuildTime=${BUILD_TIME}'" \
 		-o ${APP}
 
 container: build
