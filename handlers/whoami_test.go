@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-func TestVersion(t *testing.T) {
+func TestWhoami(t *testing.T) {
 	w := httptest.NewRecorder()
 	buildTime := time.Now().Format("20060102_03:04:05")
 	commit := "some test hash"
@@ -29,21 +29,13 @@ func TestVersion(t *testing.T) {
 	}
 	info := struct {
 		CurrentTime string `json:"currentTime"`
-		BuildTime   string `json:"buildTime"`
-		Commit      string `json:"commit"`
-		Release     string `json:"release"`
+		IPaddress   string `json:"ipaddress"`
 	}{}
 	err = json.Unmarshal(greeting, &info)
 	if err != nil {
 		t.Fatal(err)
 	}
-	if info.Release != release {
-		t.Errorf("Release version is wrong. Have: %s, want: %s", info.Release, release)
-	}
-	if info.BuildTime != buildTime {
-		t.Errorf("Build time is wrong. Have: %s, want: %s", info.BuildTime, buildTime)
-	}
-	if info.Commit != commit {
-		t.Errorf("Commit is wrong. Have: %s, want: %s", info.Commit, commit)
+	if info.IPaddress != release {
+		t.Errorf("Release IPaddress is wrong. Have: %s, want: %s", info.IPaddress, release)
 	}
 }
