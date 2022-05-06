@@ -1,4 +1,4 @@
-name: Build and Publish
+name: Build, publish Docker and deploy to CIVO
 
 on:
   push:
