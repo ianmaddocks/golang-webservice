@@ -31,6 +31,7 @@ jobs:
       uses: kvrhdn/tfe-run@v1
       with:
         token: ${{ secrets.TF_API_TOKEN }}
+        organization: Test-maddocks
         workspace: civocloud-iac-k8s-https-webservice
         message: |
           Run triggered using civocloud-iac-k8s-https-webservice (commit: ${{ github.SHA }})
