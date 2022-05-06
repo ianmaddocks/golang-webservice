@@ -35,8 +35,9 @@ jobs:
         workspace: civocloud-iac-k8s-https-webservice
         message: |
           Run triggered using civocloud-iac-k8s-https-webservice (commit: ${{ github.SHA }})
+        directory: terraform/
         wait-for-completion: true
-        type: plan
+        type: apply
       id: civocloud-iac-k8s-https-webservice 
     - name: civo ip address
       run : echo ${{ steps.civocloud-iac-k8s-https-webservice.outputs.public_ip_addr }}
