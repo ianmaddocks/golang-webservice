@@ -15,13 +15,13 @@ resource "kubernetes_deployment" "webapp1_deployment" {
     namespace = "default"
   }
   spec {
-    replicas = 5
+    replicas = 4
     selector {
       match_labels = {
         app = "webapp1"
       }
     }
-    min_ready_seconds   = "10"
+    min_ready_seconds   = "5"
     strategy {
         type            = "RollingUpdate"
         rolling_update {
@@ -37,7 +37,7 @@ resource "kubernetes_deployment" "webapp1_deployment" {
       }
       spec {
         container {
-          image = "ianmaddocks/webapp1:v.0.0.0.8"
+          image = "ianmaddocks/webapp1:latest"
           name  = "webapp1"
           port {
             container_port = 80
