@@ -1,7 +1,6 @@
 PROJECT?=webapp1
 PORT?=80
 APPNAME=server
-
 RELEASE?=0.0.3
 COMMIT?=$(shell git rev-parse --short HEAD)
 BUILD_TIME=$(shell date -u '+%Y-%m-%d_%H:%M:%S')
