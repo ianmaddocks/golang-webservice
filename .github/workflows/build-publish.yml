@@ -38,6 +38,4 @@ jobs:
         directory: terraform/
         wait-for-completion: true
         type: apply
-      id: civocloud-iac-k8s-https-webservice 
-    - name: civo ip address
-      run : echo ${{ steps.civocloud-iac-k8s-https-webservice.outputs.public_ip_addr }}
+      id: civocloud-iac-k8s-https-webservice
