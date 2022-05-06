@@ -27,3 +27,15 @@ jobs:
     - name: push service
       run: |
         make push
+    - name: update civo deployment
+      uses: kvrhdn/tfe-run@v1
+      with:
+        token: ${{ secrets.TF_API_TOKEN }}
+        workspace: civocloud-iac-k8s-https-webservice
+        message: |
+          Run triggered using civocloud-iac-k8s-https-webservice (commit: ${{ github.SHA }})
+        wait-for-completion: true
+        type: plan
+      id: civocloud-iac-k8s-https-webservice 
+    - name: civo ip address
+      run : echo ${{ steps.civocloud-iac-k8s-https-webservice.outputs.public_ip_addr }}
