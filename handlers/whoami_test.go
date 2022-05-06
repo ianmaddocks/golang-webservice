@@ -11,10 +11,8 @@ import (
 
 func TestWhoami(t *testing.T) {
 	w := httptest.NewRecorder()
-	buildTime := time.Now().Format("20060102_03:04:05")
-	commit := "some test hash"
-	release := "0.0.8"
-	h := version(buildTime, commit, release)
+	ipaddress := "192.168.1.166"
+	h := whoami()
 	h(w, nil)
 
 	resp := w.Result()
@@ -35,7 +33,7 @@ func TestWhoami(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if info.IPaddress != release {
-		t.Errorf("Release IPaddress is wrong. Have: %s, want: %s", info.IPaddress, release)
+	if info.IPaddress != ipaddress {
+		t.Errorf("Release IPaddress is wrong. Have: %s, want: %s", info.IPaddress, ipaddress)
 	}
 }
