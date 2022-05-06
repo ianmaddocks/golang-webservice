@@ -1,5 +1,6 @@
 PROJECT?=webapp1
 PORT?=80
+APPNAME=server
 
 RELEASE?=0.0.3
 COMMIT?=$(shell git rev-parse --short HEAD)
@@ -29,7 +30,7 @@ build: clean
 		-X '${PROJECT}/vn.Release=${RELEASE}' \
 		-X '${PROJECT}/vn.Commit=${COMMIT}' \
 		-X '${PROJECT}/vn.BuildTime=${BUILD_TIME}'" \
-		-o ${APP}
+		-o ${APPNAME}
 
 build4mac: clean
 	@echo "build..."
@@ -38,7 +39,7 @@ build4mac: clean
 		-X '${PROJECT}/vn.Release=${RELEASE}' \
 		-X '${PROJECT}/vn.Commit=${COMMIT}' \
 		-X '${PROJECT}/vn.BuildTime=${BUILD_TIME}'" \
-		-o ${APP}
+		-o ${APPNAME}
 
 container: build
 	@echo "container.."
@@ -54,7 +55,7 @@ push: container
 run_native: build4mac
 	@echo "run..."
 	@echo "set PORT using 'export PORT=...'"
-	./${APP}
+	./${APPNAME}
 
 run_container: container
 	@echo "run in a Docker container..."

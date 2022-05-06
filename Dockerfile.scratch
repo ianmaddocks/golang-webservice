@@ -3,5 +3,5 @@ FROM scratch
 ENV PORT 80
 EXPOSE $PORT
 
-COPY microservice2 /
-CMD ["/microservice2"]
+COPY server /
+CMD ["/server"]
