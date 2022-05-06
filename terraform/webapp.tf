@@ -2,7 +2,6 @@
 
 provider "kubernetes" {
   config_path = pathexpand(var.kind_cluster_config_path)
-  alias = "alias"
 }
 
 variable "cloudflare_zone_id" {
