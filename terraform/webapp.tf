@@ -15,13 +15,13 @@ resource "kubernetes_deployment" "webapp1_deployment" {
     namespace = "default"
   }
   spec {
-    replicas = 5
+    replicas = 4
     selector {
       match_labels = {
         app = "webapp1"
       }
     }
-    min_ready_seconds   = "4"
+    min_ready_seconds   = "10"
     strategy {
         type            = "RollingUpdate"
         rolling_update {
