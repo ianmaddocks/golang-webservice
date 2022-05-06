@@ -1,9 +1,4 @@
 #webapp.tf
-
-provider "kubernetes" {
-  config_path = pathexpand(var.kind_cluster_config_path)
-}
-
 variable "cloudflare_zone_id" {
     type = string
     sensitive = true
