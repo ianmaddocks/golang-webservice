@@ -6,12 +6,11 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
-	"time"
 )
 
 func TestWhoami(t *testing.T) {
 	w := httptest.NewRecorder()
-	ipaddress := "192.168.1.166"
+	ipaddress := GetOutboundIP().String()
 	h := whoami()
 	h(w, nil)
 
