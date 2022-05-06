@@ -21,7 +21,7 @@ resource "kubernetes_deployment" "webapp1_deployment" {
         app = "webapp1"
       }
     }
-    min_ready_seconds   = "5"
+    min_ready_seconds   = "4"
     strategy {
         type            = "RollingUpdate"
         rolling_update {
