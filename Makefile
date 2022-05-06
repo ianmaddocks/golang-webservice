@@ -1,4 +1,4 @@
-PROJECT?=microservice2
+PROJECT?=webapp1
 PORT?=80
 
 RELEASE?=0.0.3
