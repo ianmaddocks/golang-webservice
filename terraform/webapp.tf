@@ -1,4 +1,4 @@
-#microservice2.tf
+#webapp.tf
 
 provider "kubernetes" {
   config_path = pathexpand(var.kind_cluster_config_path)
@@ -10,13 +10,13 @@ variable "cloudflare_zone_id" {
     sensitive = true
 }
 
-resource "kubernetes_deployment" "microservice2_deployment" {
+resource "kubernetes_deployment" "webapp1_deployment" {
   depends_on = [helm_release.traefik]
   
   metadata {
-    name = "microservice2-deploy"
+    name = "webapp1-deploy"
     labels = {
-      app = "microservice2"
+      app = "webapp1"
     }
     namespace = "default"
   }
@@ -24,7 +24,7 @@ resource "kubernetes_deployment" "microservice2_deployment" {
     replicas = 1
     selector {
       match_labels = {
-        app = "microservice2"
+        app = "webapp1"
       }
     }
     min_ready_seconds   = "5"
@@ -38,12 +38,12 @@ resource "kubernetes_deployment" "microservice2_deployment" {
     template {
       metadata {
         labels = {
-           app = "microservice2"
+           app = "webapp1"
         }
       }
       spec {
         container {
-          image = "ianmaddocks/microservice2:v0.0.2"
+          image = "ianmaddocks/webapp1:latest"
           name  = "microservice2"
           port {
             container_port = 80
@@ -68,10 +68,10 @@ resource "kubernetes_deployment" "microservice2_deployment" {
 }
 
 resource "kubernetes_ingress_v1" "microservice2_ingress" {
-  depends_on = [kubernetes_deployment.microservice2_deployment]
+  depends_on = [kubernetes_deployment.webapp1_deployment]
 
   metadata {
-    name = "microservice2"
+    name = "webapp1"
   }
   spec { 
     rule {
@@ -79,7 +79,7 @@ resource "kubernetes_ingress_v1" "microservice2_ingress" {
         path {
           backend {
             service {
-              name = "microservice2-svc"
+              name = "webapp1-svc"
               port {
                 number = 80
               }
@@ -90,21 +90,21 @@ resource "kubernetes_ingress_v1" "microservice2_ingress" {
       }
     }
     tls {
-          secret_name = "microservice2"
-          hosts = ["microservice2.maddocks.name"]
+          secret_name = "webapp1"
+          hosts = ["civo.maddocks.name"]
     }
   }
 }
 
-resource "kubernetes_service_v1" "microservice2" {
-  depends_on = [kubernetes_deployment.microservice2_deployment]
+resource "kubernetes_service_v1" "webapp1" {
+  depends_on = [kubernetes_deployment.webapp1_deployment]
 
   metadata {
-    name = "microservice2-svc"
+    name = "webapp1-svc"
   }
   spec {
     selector = {
-      app = kubernetes_deployment.microservice2_deployment.metadata.0.labels.app
+      app = kubernetes_deployment.webapp1_deployment.metadata.0.labels.app
     }
     port {
       port  = 80
@@ -113,29 +113,28 @@ resource "kubernetes_service_v1" "microservice2" {
   }
 }
 
-resource "kubectl_manifest" "microservice2-certificate" {
-
+resource "kubectl_manifest" "webapp1-certificate" {
     depends_on = [time_sleep.wait_for_clusterissuer]
 
     yaml_body = <<YAML
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: microservice2
+  name: webapp1
   namespace: default
 spec:
-  secretName: microservice2
+  secretName: webapp1
   issuerRef:
     name: cloudflare-prod
     kind: ClusterIssuer
   dnsNames:
-  - 'microservice2.maddocks.name'   
-    YAML
+  - 'civo.maddocks.name'
+YAML
 }
 
 resource "cloudflare_record" "clcreative-main-cluster" {
     zone_id = var.cloudflare_zone_id #"your-zone-id"
-    name = "microservice2.maddocks.name"
+    name = "civo.maddocks.name"
     value =  data.civo_loadbalancer.traefik_lb.public_ip #the public IP
     type = "A"
     proxied = false
@@ -143,5 +142,5 @@ resource "cloudflare_record" "clcreative-main-cluster" {
 
 output "public_ip_addr" {
   value       = data.civo_loadbalancer.traefik_lb.public_ip
-  description = "The public IP address of the microservice2 server instance."
+  description = "The public IP address of the civo server instance."
 }
