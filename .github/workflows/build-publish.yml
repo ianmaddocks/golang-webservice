@@ -35,6 +35,7 @@ jobs:
         workspace: civocloud-iac-k8s-https-webservice
         message: |
           Run triggered using civocloud-iac-k8s-https-webservice (commit: ${{ github.SHA }})
+        directory: terraform/
         wait-for-completion: true
         type: plan
       id: civocloud-iac-k8s-https-webservice 
