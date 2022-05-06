@@ -1,6 +1,7 @@
 PROJECT?=webapp1
 PORT?=80
 APPNAME=server
+GONAME=microservice2
 RELEASE?=0.0.3
 COMMIT?=$(shell git rev-parse --short HEAD)
 BUILD_TIME=$(shell date -u '+%Y-%m-%d_%H:%M:%S')
@@ -26,18 +27,18 @@ build: clean
 	@echo "settings: GOOS=" ${GOOS}", GOARCH="${GOARCH}", BuildTime="${BUILD_TIME}", Release="${RELEASE}", Commit=" ${COMMIT}
 	CGO_ENABLED=0 GOOS=${GOOS} GOARCH=${GOARCH} go build \
 		-ldflags "-s -w \
-		-X '${APPNAME}/vn.Release=${RELEASE}' \
-		-X '${APPNAME}/vn.Commit=${COMMIT}' \
-		-X '${APPNAME}/vn.BuildTime=${BUILD_TIME}'" \
+		-X '${GONAME}/vn.Release=${RELEASE}' \
+		-X '${GONAME}/vn.Commit=${COMMIT}' \
+		-X '${GONAME}/vn.BuildTime=${BUILD_TIME}'" \
 		-o ${APPNAME}
 
 build4mac: clean
 	@echo "build..."
 	@echo "settings: BuildTime="${BUILD_TIME}", Release="${RELEASE}", Commit=" ${COMMIT}
 	go build -ldflags "-s -w \
-		-X '${APPNAME}/vn.Release=${RELEASE}' \
-		-X '${APPNAME}/vn.Commit=${COMMIT}' \
-		-X '${APPNAME}/vn.BuildTime=${BUILD_TIME}'" \
+		-X '${GONAME}/vn.Release=${RELEASE}' \
+		-X '${GONAME}/vn.Commit=${COMMIT}' \
+		-X '${GONAME}/vn.BuildTime=${BUILD_TIME}'" \
 		-o ${APPNAME}
 
 container: build
