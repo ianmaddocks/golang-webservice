@@ -21,7 +21,7 @@ resource "kubernetes_deployment" "webapp1_deployment" {
     namespace = "default"
   }
   spec {
-    replicas = 1
+    replicas = 5
     selector {
       match_labels = {
         app = "webapp1"
@@ -44,7 +44,7 @@ resource "kubernetes_deployment" "webapp1_deployment" {
       spec {
         container {
           image = "ianmaddocks/webapp1:latest"
-          name  = "microservice2"
+          name  = "webapp1"
           port {
             container_port = 80
           }
@@ -67,7 +67,7 @@ resource "kubernetes_deployment" "webapp1_deployment" {
   }
 }
 
-resource "kubernetes_ingress_v1" "microservice2_ingress" {
+resource "kubernetes_ingress_v1" "webapp1_ingress" {
   depends_on = [kubernetes_deployment.webapp1_deployment]
 
   metadata {
