@@ -54,7 +54,7 @@ push: container
 	
 run_native: build4mac
 	@echo "run..."
-	@echo "set PORT using 'export PORT=...'"
+	@echo "set PORT using 'export PORT=....'"
 	./${APPNAME}
 
 run_container: container
