@@ -1,4 +1,5 @@
 microservice2
 .*
 !.gitignore
+!.github
 terraform.tfstate
