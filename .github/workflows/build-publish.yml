@@ -32,10 +32,10 @@ jobs:
       with:
         token: ${{ secrets.TF_API_TOKEN }}
         organization: Test-maddocks
-        workspace: civocloud-iac-k8s-https-webservice
+        workspace: golang-webservice
         message: |
-          Run triggered using civocloud-iac-k8s-https-webservice (commit: ${{ github.SHA }})
+          Terrform Cloud Run triggered (commit: ${{ github.SHA }})
         directory: terraform/
         wait-for-completion: true
         type: apply
-      id: civocloud-iac-k8s-https-webservice
+      id: golang-webservice
