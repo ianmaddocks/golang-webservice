@@ -12,7 +12,7 @@ data "civo_size" "xsmall" {
 }
 
 resource "civo_kubernetes_cluster" "k8s_demo_2" {
-    name = "k8s_demo_2"
+    name = "golang_webservice"
     applications = ""
     #num_target_nodes = 2
     #target_nodes_size = element(data.civo_size.xsmall.sizes, 0).name
