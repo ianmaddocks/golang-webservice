@@ -11,26 +11,33 @@ data "civo_size" "xsmall" {
     }
 }
 
-resource "civo_kubernetes_cluster" "k8s_demo_2" {
-    name = "k8s_demo_2"
+variable "cluster-name" {
+  type = string
+  default = "nginx1"
+}
+
+resource "civo_kubernetes_cluster" "k8s_cluster" {
+    #name = var.cluster-name
+    name = "${basename(abspath(path.module))}"
+    
     applications = ""
     #num_target_nodes = 2
     #target_nodes_size = element(data.civo_size.xsmall.sizes, 0).name
-    firewall_id = civo_firewall.fw_demo_2.id
+    firewall_id = civo_firewall.fw_cluster.id
     pools {
         size = element(data.civo_size.xsmall.sizes, 0).name
-        node_count = 2
+        node_count = 1
     }
 }
 
-resource "civo_firewall" "fw_demo_2" {
-    name = "fw_demo_2"
+resource "civo_firewall" "fw_cluster" {
+    name = "fw_cluster"
 
     create_default_rules = false
 }
 
 resource "civo_firewall_rule" "kubernetes_http" {
-    firewall_id = civo_firewall.fw_demo_2.id
+    firewall_id = civo_firewall.fw_cluster.id
     protocol = "tcp"
     start_port = "80"
     end_port = "80"
@@ -41,7 +48,7 @@ resource "civo_firewall_rule" "kubernetes_http" {
 }
 
 resource "civo_firewall_rule" "kubernetes_https" {
-    firewall_id = civo_firewall.fw_demo_2.id
+    firewall_id = civo_firewall.fw_cluster.id
     protocol = "tcp"
     start_port = "443"
     end_port = "443"
@@ -52,7 +59,7 @@ resource "civo_firewall_rule" "kubernetes_https" {
 }
 
 resource "civo_firewall_rule" "kubernetes_api" {
-    firewall_id = civo_firewall.fw_demo_2.id
+    firewall_id = civo_firewall.fw_cluster.id
     protocol = "tcp"
     start_port = "6443"
     end_port = "6443"
@@ -65,7 +72,7 @@ resource "civo_firewall_rule" "kubernetes_api" {
 resource "time_sleep" "wait_for_kubernetes" {
 
     depends_on = [
-        civo_kubernetes_cluster.k8s_demo_2
+        civo_kubernetes_cluster.k8s_cluster
     ]
 
     create_duration = "20s"
@@ -77,5 +84,6 @@ data "civo_loadbalancer" "traefik_lb" {
         helm_release.traefik
     ]
 
-    name = "k8s_demo_2-traefik-traefik"
+    #name = "${var.cluster-name}-traefik-traefik" #"nginx1-traefik-traefik"
+    name = "${basename(abspath(path.module))}-traefik-traefik"
 }
