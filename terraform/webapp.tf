@@ -37,7 +37,7 @@ resource "kubernetes_deployment" "webapp1_deployment" {
       }
       spec {
         container {
-          image = "ianmaddocks/webapp1:v0.0.0.11"
+          image = "ianmaddocks/webapp1:latest"
           name  = "webapp1"
           port {
             container_port = 80
@@ -133,13 +133,13 @@ spec:
     name: cloudflare-prod
     kind: ClusterIssuer
   dnsNames:
-  - 'civo.maddocks.name'
+  - 'webapp.maddocks.name'
 YAML
 }
 
 resource "cloudflare_record" "clcreative-main-cluster" {
     zone_id = var.cloudflare_zone_id #"your-zone-id"
-    name = "civo.maddocks.name"
+    name = "webapp.maddocks.name"
     value =  data.civo_loadbalancer.traefik_lb.public_ip #the public IP
     type = "A"
     proxied = false
