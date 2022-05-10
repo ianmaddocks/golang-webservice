@@ -77,5 +77,5 @@ data "civo_loadbalancer" "traefik_lb" {
         helm_release.traefik
     ]
 
-    name = "k8s_demo_2-traefik-traefik"
+    name = "golang_webservice-traefik-traefik"
 }
