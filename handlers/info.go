@@ -20,10 +20,10 @@ func info(release string, birth time.Time) http.HandlerFunc {
 			Release     string `json:"release"`
 			Age         string `json:"age"`
 		}{
-			t.String(), release, GetOutboundIP().String(), age.String(),
+			t.Format(time.RudyDate).String(), release, GetOutboundIP().String(), age.String(),
 		}
 
-		body, err := json.Marshal(info)
+		body, err := json.MarshalIndent(info, "","	")
 		if err != nil {
 			log.Printf("Could not encode info data: %v", err)
 			http.Error(w, http.StatusText(http.StatusServiceUnavailable), http.StatusServiceUnavailable)
