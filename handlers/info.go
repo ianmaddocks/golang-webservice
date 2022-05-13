@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
-	"time"
+	"time" 
 )
 
 func info(release string, birth time.Time) http.HandlerFunc {
