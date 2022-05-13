@@ -20,7 +20,7 @@ func info(release string, birth time) http.HandlerFunc {
 			Release     string `json:"release"`
 			Age         string `json:"age"`
 		}{
-			t.String(), release, GetOutboundIP().String(), age.String,
+			t.String(), release, GetOutboundIP().String(), age.String(),
 		}
 
 		body, err := json.Marshal(info)
