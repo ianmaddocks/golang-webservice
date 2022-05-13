@@ -37,7 +37,7 @@ resource "kubernetes_deployment" "webapp1_deployment" {
       }
       spec {
         container {
-          image = "ianmaddocks/webapp1:v0.0.0.25"
+          image = "ianmaddocks/webapp1:v0.0.0.26"
           name  = "webapp1"
           port {
             container_port = 80
