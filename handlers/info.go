@@ -12,7 +12,7 @@ func info(release string, birth Time) http.HandlerFunc {
 		log.Print("info called")
 
 		t := time.Now()
-		age := t.Now().Sub(birth)
+		age := t.Sub(birth)
 
 		info := struct {
 			CurrentTime string `json:"currentTime"`
