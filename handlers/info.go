@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-func info(release string, birth Time.time) http.HandlerFunc {
+func info(release string, birth time.Time) http.HandlerFunc {
 	return func(w http.ResponseWriter, _ *http.Request) {
 		log.Print("info called")
 
