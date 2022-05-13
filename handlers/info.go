@@ -10,14 +10,16 @@ import (
 func info(release string, birth Time) http.HandlerFunc {
 	return func(w http.ResponseWriter, _ *http.Request) {
 		log.Print("info called")
+
+		t := time.Now()
+		age := t.Now().Sub(birth)
+
 		info := struct {
 			CurrentTime string `json:"currentTime"`
 			IPaddress   string `json:"ipaddress"`
 			Release     string `json:"release"`
 			Age         string `json:"age"`
 		}{
-			t := time.Now()
-			age := t.Now().Sub(birth)
 			t.String(), release, GetOutboundIP().String(), age,
 		}
 
