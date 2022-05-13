@@ -20,7 +20,10 @@ func info(release string, birth time.Time) http.HandlerFunc {
 			Release     string `json:"release"`
 			Age         string `json:"age"`
 		}{
-			t.Format(time.RubyDate), release, GetOutboundIP().String(), age.Truncate(time.Second),
+			t.Format(time.RubyDate), 
+			release, 
+			GetOutboundIP().String(), 
+			age.Truncate(time.Second).String(),
 		}
 
 		body, err := json.MarshalIndent(info, "","	")
