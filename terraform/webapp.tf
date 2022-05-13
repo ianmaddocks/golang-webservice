@@ -92,6 +92,17 @@ resource "kubernetes_ingress_v1" "webapp1_ingress" {
           }
           path = "/whoami"
         }
+        path {
+          backend {
+            service {
+              name = "webapp1-svc"
+              port {
+                number = 80
+              }
+            }
+          }
+          path = "/info"
+        }
       }
     }
     tls {
