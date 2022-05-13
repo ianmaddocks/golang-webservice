@@ -21,12 +21,12 @@ func info(release string, birth time.Time) http.HandlerFunc {
 			Age         string `json:"age"`
 		}{
 			t.Format(time.RubyDate), 
-			release, 
 			GetOutboundIP().String(), 
+			release, 
 			age.Truncate(time.Second).String(),
 		}
 
-		body, err := json.MarshalIndent(info, "","	")
+		body, err := json.MarshalIndent(info, "","  ")
 		if err != nil {
 			log.Printf("Could not encode info data: %v", err)
 			http.Error(w, http.StatusText(http.StatusServiceUnavailable), http.StatusServiceUnavailable)
