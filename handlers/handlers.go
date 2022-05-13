@@ -22,7 +22,7 @@ func Router(buildTime, commit, release string) *mux.Router {
 	r := mux.NewRouter()
 	r.HandleFunc("/version", version(buildTime, commit, release)).Methods("GET")
 	r.HandleFunc("/whoami", whoami()).Methods("GET")
-	r.HandleFunc("/info", info(release),time.now()).Methods("GET")
+	r.HandleFunc("/info", info(release, time.now())).Methods("GET")
 	r.HandleFunc("/healthz", healthz)
 	r.HandleFunc("/readyz", readyz(isReady))
 	return r
