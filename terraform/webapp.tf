@@ -112,8 +112,7 @@ resource "kubernetes_ingress_v1" "webapp1_ingress" {
               }
             }
           }
-          path = "/"
-          path_type = "Prefix"
+          path = "/killinstance"
         }
       }
     }
