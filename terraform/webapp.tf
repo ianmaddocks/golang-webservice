@@ -103,6 +103,18 @@ resource "kubernetes_ingress_v1" "webapp1_ingress" {
           }
           path = "/info"
         }
+        path {
+          backend {
+            service {
+              name = "webapp1-svc"
+              port {
+                number = 80
+              }
+            }
+          }
+          path = "/"
+          path_type = "Prefix"
+        }
       }
     }
     tls {

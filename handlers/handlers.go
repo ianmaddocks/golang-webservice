@@ -8,6 +8,8 @@ import (
 	"log" //"github.com/golang/glog"
 )
 
+var timeToDie *time.Time
+
 // Router register necessary routes and returns an instance of a router.
 func Router(buildTime, commit, release string) *mux.Router {
 	isReady := &atomic.Value{}
@@ -23,6 +25,7 @@ func Router(buildTime, commit, release string) *mux.Router {
 	r.HandleFunc("/version", version(buildTime, commit, release)).Methods("GET")
 	r.HandleFunc("/whoami", whoami()).Methods("GET")
 	r.HandleFunc("/info", info(release, time.Now())).Methods("GET")
+	r.HandleFunc("/killinstace", die(release, time.Now())).Methods("POST")
 	r.HandleFunc("/healthz", healthz)
 	r.HandleFunc("/readyz", readyz(isReady))
 	return r
