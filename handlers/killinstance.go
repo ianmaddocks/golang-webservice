@@ -7,9 +7,9 @@ import (
 	"time"
 )
 
-func die(release string, birth time.Time) http.HandlerFunc {
+func killinstance(release string, birth time.Time) http.HandlerFunc {
 	return func(w http.ResponseWriter, _ *http.Request) {
-		log.Print("die called")
+		log.Print("killinstance called")
 
 		t := time.Now()
 		age := t.Sub(birth)
