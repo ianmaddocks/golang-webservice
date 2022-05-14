@@ -15,7 +15,7 @@ resource "kubernetes_deployment" "webapp1_deployment" {
     namespace = "default"
   }
   spec {
-    replicas = 2
+    replicas = 3
     selector {
       match_labels = {
         app = "webapp1"
