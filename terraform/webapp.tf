@@ -15,7 +15,7 @@ resource "kubernetes_deployment" "webapp1_deployment" {
     namespace = "default"
   }
   spec {
-    replicas = 5
+    replicas = 2
     selector {
       match_labels = {
         app = "webapp1"
@@ -37,7 +37,7 @@ resource "kubernetes_deployment" "webapp1_deployment" {
       }
       spec {
         container {
-          image = "ianmaddocks/webapp1:v0.0.0.26"
+          image = "ianmaddocks/webapp1:latest"
           name  = "webapp1"
           port {
             container_port = 80
