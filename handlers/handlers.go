@@ -1,11 +1,10 @@
 package handlers
 
 import (
-	"sync/atomic"
-	"time"
-
 	"github.com/gorilla/mux"
 	"log" //"github.com/golang/glog"
+	"sync/atomic"
+	"time"
 )
 
 var timeToDie *time.Time
@@ -25,7 +24,7 @@ func Router(buildTime, commit, release string) *mux.Router {
 	r.HandleFunc("/version", version(buildTime, commit, release)).Methods("GET")
 	r.HandleFunc("/whoami", whoami()).Methods("GET")
 	r.HandleFunc("/info", info(release, time.Now())).Methods("GET")
-	r.HandleFunc("/killinstace", die(release, time.Now())).Methods("POST")
+	r.HandleFunc("/killinstace", die(release, time.Now())).Methods("GET")
 	r.HandleFunc("/healthz", healthz)
 	r.HandleFunc("/readyz", readyz(isReady))
 	return r
